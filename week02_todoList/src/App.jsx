@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./App.css";
+import Button from "./components/Button";
+import Input from "./components/Input";
 
 function App() {
   // 투두리스트, 화면에 출력되는 (추가, 삭제, 수정)
@@ -38,10 +40,8 @@ function App() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type="text" value={text} onChange={(e) => setText(e.target.value)} />
-        <button type="submit" onClick={() => addTodo()}>
-          할 일 등록
-        </button>
+        <Input value={text} onChange={(e) => setText(e.target.value)} />
+        <Button onClick={addTodo}>할 일 등록</Button>
       </form>
       <div>
         {todos.map((todo, _) => (
@@ -58,18 +58,16 @@ function App() {
             {editingId === todo.id && (
               <div key={todo.id} style={{ display: "flex", gap: "5px" }}>
                 <p>{todo.id}번</p>
-                <input defaultValue={todo.task} onChange={(e) => setEditText(e.target.value)} />
+                <Input defaultValue={todo.task} onChange={(e) => setEditText(e.target.value)} />
               </div>
             )}
-
-            <button onClick={() => deleteTodo(todo.id)}>삭제하기</button>
-
+            <Button onClick={() => deleteTodo(todo.id)}>삭제하기</Button>
             {/* editingId !== todo.id 수정이 아닌상태 */}
             {/* editingId === todo.id 수정 중인 상태 */}
             {editingId === todo.id ? (
-              <button onClick={() => updateTodo(editingId, editText)}>수정 완료</button>
+              <Button onClick={() => updateTodo(editingId, editText)}>수정 완료</Button>
             ) : (
-              <button onClick={() => setEditingId(todo.id)}>수정 진행</button>
+              <Button onClick={() => setEditingId(todo.id)}>수정 진행</Button>
             )}
           </div>
         ))}
