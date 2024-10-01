@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  // 투두리스트, 화면에 출력되는(추가, 삭제, 수정)
+  // 투두리스트, 화면에 출력되는 (추가, 삭제, 수정)
   const [todos, setTodos] = useState([{ id: 1, task: "투두 만들어보기" }]);
 
   const [text, setText] = useState("");
