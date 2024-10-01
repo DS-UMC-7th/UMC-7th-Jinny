@@ -8,15 +8,14 @@ function App() {
 
   return (
     <>
-      <div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(10,1fr)", rowGap: "15px" }}>
         {MOVIES.results.map((item) => {
           {
-            console.log(item.title);
+            //console.log(item.title);
             return (
-              <>
-                <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}></img>
-                <h3 key={item.id}>{item.title}</h3>
-              </>
+              <div key={item.id}>
+                <img src={`https://image.tmdb.org/t/p/original/${item.poster_path}`} style={{ width: "8.5vw", borderRadius: "10px" }}></img>
+              </div>
             );
           }
         })}
