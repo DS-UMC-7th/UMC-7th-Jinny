@@ -8,7 +8,11 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Search from "./pages/Search";
 import Category from "./pages/Category";
-
+import NowPlaying from "./pages/Now-Playing";
+import Popular from "./pages/Popular";
+import TopRated from "./pages/Top-Rated";
+import UpComing from "./pages/Up-Coming";
+const popularMoviesUrl = `https://api.themoviedb.org/3/movie/popular?language=ko&page=1&region=KR`;
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,12 +20,22 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MoviesPage />,
+        element: <MoviesPage url={popularMoviesUrl} />,
       },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
       { path: "search", element: <Search /> },
       { path: "category", element: <Category /> },
+    ],
+  },
+  {
+    path: "/movies",
+    element: <RootLayout />,
+    children: [
+      { path: "now-playing", element: <NowPlaying /> },
+      { path: "popular", element: <Popular /> },
+      { path: "top-rated", element: <TopRated /> },
+      { path: "up-coming", element: <UpComing /> },
     ],
   },
 ]);
