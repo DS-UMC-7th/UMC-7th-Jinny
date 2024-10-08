@@ -2,6 +2,7 @@ import { MOVIES } from "../../public/mocks/movies";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "./Card";
+import styled from "styled-components";
 
 const MoviesPage = () => {
   // console.log(MOVIES.results); // 배열
@@ -25,15 +26,22 @@ const MoviesPage = () => {
 
   return (
     <>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(10,1fr)", rowGap: "15px" }}>
+      <MoviesDiv>
         {movies.data?.results.map((item) => {
           {
             return <Card key={item.id} id={item.id} poster_path={item.poster_path} />;
           }
         })}
-      </div>
+      </MoviesDiv>
     </>
   );
 };
 
 export default MoviesPage;
+
+const MoviesDiv = styled.div`
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  row-gap: 15px;
+  column-gap: 10px;
+`;

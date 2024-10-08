@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const Card = ({ id, poster_path }) => {
   const [hoverId, setHoverId] = useState(null);
 
   const onMouseOver = (id) => {
-    console.log("마우스가 올라왔습니다.", id);
     setHoverId(id);
   };
 
@@ -16,15 +16,24 @@ const Card = ({ id, poster_path }) => {
 
   return (
     <div key={id}>
-      <img
+      <PosterImg
         src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         className="movie-poster"
-        style={{ width: "8.5vw", borderRadius: "10px", filter: isHovered ? "brightness(30%)" : "none", transition: "filter 0.2s ease" }}
         onMouseOver={() => onMouseOver(id)}
         onMouseOut={onMouseOut}
-      ></img>
+      ></PosterImg>
     </div>
   );
 };
 
 export default Card;
+
+const PosterImg = styled.img`
+  width: 8vw;
+  border-radius: 10px;
+  transition: filter 0.2s ease;
+
+  &:hover {
+    filter: brightness(0.3);
+  }
+`;
