@@ -12,6 +12,7 @@ import NowPlaying from "./pages/Now-Playing";
 import Popular from "./pages/Popular";
 import TopRated from "./pages/Top-Rated";
 import UpComing from "./pages/Up-Coming";
+import MovieDetail from "./pages/MovieDetail";
 const popularMoviesUrl = `/movie/popular?language=ko&page=1&region=KR`;
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
       { path: "popular", element: <Popular /> },
       { path: "top-rated", element: <TopRated /> },
       { path: "up-coming", element: <UpComing /> },
+      { path: ":movieId", element: <MovieDetail /> },
     ],
   },
 ]);
