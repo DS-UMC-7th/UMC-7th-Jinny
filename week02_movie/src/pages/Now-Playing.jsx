@@ -1,7 +1,7 @@
 import MoviesPage from "../components/MoviesPage";
 
 const NowPlaying = () => {
-  const NowPlayingMoviesUrl = `https://api.themoviedb.org/3/movie/now_playing?language=ko&page=1&region=KR`;
+  const NowPlayingMoviesUrl = `/movie/now_playing?language=ko&page=1&region=KR`;
 
   return (
     <div>

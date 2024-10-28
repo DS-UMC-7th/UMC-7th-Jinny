@@ -1,7 +1,7 @@
 import MoviesPage from "../components/MoviesPage";
 
 const UpComing = () => {
-  const UpComingMoviesUrl = `  https://api.themoviedb.org/3/movie/upcoming?language=ko&page=1&region=KR`;
+  const UpComingMoviesUrl = `/movie/upcoming?language=ko&page=1&region=KR`;
 
   return (
     <div>
