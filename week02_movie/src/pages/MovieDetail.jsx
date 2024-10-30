@@ -56,14 +56,14 @@ const MovieDetail = () => {
 
   return (
     <div style={{ width: "100%", position: "relative" }}>
-      <div style={{ width: "100%", position: "relative" }}>
+      <div style={{ width: "95%", position: "relative", height: "350px", left: "3%" }}>
         <div style={{ width: "100%", height: "350px", overflow: "hidden", margin: "0 auto" }}>
           <img
             src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
             style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.2)" }}
           ></img>
         </div>
-        <div style={{ position: "absolute", top: "5%", left: "3%", width: "40%", backgroundColor: "transparent", height: "330px", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: "5%", left: "2%", width: "40%", backgroundColor: "transparent", height: "330px", overflow: "hidden" }}>
           <h1 style={{ color: "white", margin: "0", marginBottom: "10px", backgroundColor: "transparent" }}>{movie.title}</h1>
           <DetailP>평균 {movie.vote_average}</DetailP>
           <DetailP>{movie.release_date}</DetailP>
@@ -71,18 +71,19 @@ const MovieDetail = () => {
           <DetailP style={{ fontSize: "24px", fontStyle: "italic", marginBottom: "10px" }}>{movie.tagline}</DetailP>
           <DetailP>{movie.overview}</DetailP>
         </div>
-
-        {/* <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} className="movie-poster"></img> */}
       </div>
-      <MoviesDiv style={{ position: "absolute", left: "3%" }}>
-        {credit?.cast.slice(0, 20).map((item) => {
-          {
-            return (
-              <Credit creditKey={item.id} key={item.id} id={item.id} profile_path={item.profile_path} name={item.name} original_name={item.original_name} />
-            );
-          }
-        })}
-      </MoviesDiv>
+      <div style={{ position: "absolute", left: "5%", width: "90%" }}>
+        <h2 style={{ color: "white", borderTop: "3px solid white", width: "45%", paddingTop: "10px" }}>감독/출연</h2>
+        <MoviesDiv>
+          {credit?.cast.slice(0, 20).map((item) => {
+            {
+              return (
+                <Credit creditKey={item.id} key={item.id} id={item.id} profile_path={item.profile_path} name={item.name} original_name={item.original_name} />
+              );
+            }
+          })}
+        </MoviesDiv>
+      </div>
     </div>
   );
 };
