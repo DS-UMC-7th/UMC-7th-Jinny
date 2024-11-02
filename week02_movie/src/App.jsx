@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         index: true,
         element: <MoviesPage url={popularMoviesUrl} />,
       },
-      { path: "login", element: <Login2 /> },
+      { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
       { path: "search", element: <Search /> },
       { path: "category", element: <Category /> },
