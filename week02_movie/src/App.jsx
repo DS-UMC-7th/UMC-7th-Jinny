@@ -13,6 +13,7 @@ import Popular from "./pages/Popular";
 import TopRated from "./pages/Top-Rated";
 import UpComing from "./pages/Up-Coming";
 import MovieDetail from "./pages/MovieDetail";
+import Login2 from "./pages/Login2";
 const popularMoviesUrl = `/movie/popular?language=ko&page=1&region=KR`;
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
         index: true,
         element: <MoviesPage url={popularMoviesUrl} />,
       },
-      { path: "login", element: <Login /> },
+      { path: "login", element: <Login2 /> },
       { path: "signup", element: <Signup /> },
       { path: "search", element: <Search /> },
       { path: "category", element: <Category /> },

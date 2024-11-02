@@ -2,8 +2,17 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
+import { validateLogin } from "../utils/validate";
+import useform from "../hooks/use-form";
 
 const Login = () => {
+  const login = useForm({
+    initialValue: {
+      email: "",
+      password: "",
+    },
+    validate: validateLogin,
+  });
   const schema = yup.object().shape({
     email: yup.string().email("올바른 이메일 형식이 아닙니다").required("이메일을 반드시 입력해주세요"),
     password: yup.string().min(8, "비밀번호는 8~16자 사이로 입력해주세요").max(16, "비밀번호는 8~16자 사이로 입력해주세요").required(),
