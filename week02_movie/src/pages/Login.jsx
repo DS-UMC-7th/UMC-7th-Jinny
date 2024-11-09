@@ -50,7 +50,7 @@ const Login = () => {
 
 export default Login;
 
-const LoginDiv = styled.div`
+export const LoginDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -59,7 +59,7 @@ const LoginDiv = styled.div`
   margin-top: 50px;
 `;
 
-const LoginInput = styled.input`
+export const LoginInput = styled.input`
   width: 25vw;
   height: 40px;
   border-radius: 10px;
@@ -73,7 +73,7 @@ const LoginInput = styled.input`
   }
 `;
 
-const ErrorMsg = styled.p`
+export const ErrorMsg = styled.p`
   color: "#FF0558";
   margin: 10px 5px;
   font-size: 14px;
