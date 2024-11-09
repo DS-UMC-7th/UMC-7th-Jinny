@@ -12,7 +12,7 @@ import NowPlaying from "./pages/Now-Playing";
 import Popular from "./pages/Popular";
 import TopRated from "./pages/Top-Rated";
 import UpComing from "./pages/Up-Coming";
-const popularMoviesUrl = `https://api.themoviedb.org/3/movie/popular?language=ko&page=1&region=KR`;
+const popularMoviesUrl = `/movie/popular?language=ko&page=1&region=KR`;
 const router = createBrowserRouter([
   {
     path: "/",

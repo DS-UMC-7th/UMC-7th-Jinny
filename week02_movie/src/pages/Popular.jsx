@@ -1,7 +1,7 @@
 import MoviesPage from "../components/MoviesPage";
 
 const Popular = () => {
-  const popularMoviesUrl = `https://api.themoviedb.org/3/movie/popular?language=ko&page=1&region=KR`;
+  const popularMoviesUrl = `/movie/popular?language=ko&page=1&region=KR`;
 
   return (
     <div>

@@ -34,6 +34,7 @@ const SideDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 10vw;
+  flex-shrink: 0;
 `;
 
 const SideMenu = styled.div`

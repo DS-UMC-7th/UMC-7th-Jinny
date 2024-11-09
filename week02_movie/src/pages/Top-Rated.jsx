@@ -1,7 +1,7 @@
 import MoviesPage from "../components/MoviesPage";
 
 const TopRated = () => {
-  const TopRatedMoviesUrl = `https://api.themoviedb.org/3/movie/top_rated?language=ko&page=1&region=KR`;
+  const TopRatedMoviesUrl = `/movie/top_rated?language=ko&page=1&region=KR`;
 
   return (
     <div>
