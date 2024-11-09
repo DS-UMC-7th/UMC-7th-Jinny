@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Card = ({ id, poster_path, title, release_date }) => {
@@ -16,14 +17,16 @@ const Card = ({ id, poster_path, title, release_date }) => {
 
   return (
     <div key={id}>
-      <PosterImg
-        src={`https://image.tmdb.org/t/p/original/${poster_path}`}
-        className="movie-poster"
-        onMouseOver={() => onMouseOver(id)}
-        onMouseOut={onMouseOut}
-      ></PosterImg>
-      <p style={{ color: "white", fontSize: "14px", fontWeight: "bold", margin: "0" }}>{title}</p>
-      <p style={{ color: "white", fontSize: "12px", margin: "0" }}>{release_date}</p>
+      <Link to={`/movies/${id}`}>
+        <PosterImg
+          src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+          className="movie-poster"
+          onMouseOver={() => onMouseOver(id)}
+          onMouseOut={onMouseOut}
+        ></PosterImg>
+        <p style={{ color: "white", fontSize: "14px", fontWeight: "bold", margin: "0" }}>{title}</p>
+        <p style={{ color: "white", fontSize: "12px", margin: "0" }}>{release_date}</p>
+      </Link>
     </div>
   );
 };

@@ -27,8 +27,6 @@ const MoviesPage = ({ url }) => {
     );
   }
 
-  console.log(movies);
-
   return (
     <div>
       <MoviesDiv>
