@@ -5,8 +5,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
 import { validateLogin } from "../utils/validate";
 import useform from "../hooks/use-form";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const login = useForm({
     initialValue: {
       email: "",
@@ -15,6 +19,7 @@ const Signup = () => {
     },
     validate: validateLogin,
   });
+
   const schema = yup.object().shape({
     email: yup.string().email("올바른 이메일 형식이 아닙니다").required("이메일을 반드시 입력해주세요"),
     password: yup
@@ -37,9 +42,20 @@ const Signup = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("폼 데이터 제출");
     console.log(data);
+    try {
+      const response = await axios.post("http://localhost:3000/auth/register", {
+        email: data.email,
+        password: data.password,
+        passwordCheck: data.passwordCheck,
+      });
+      console.log("회원가입 성공");
+      navigate("/login");
+    } catch (error) {
+      console.log("회원가입 실패 " + error);
+    }
   };
 
   return (

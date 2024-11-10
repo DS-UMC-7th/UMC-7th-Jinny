@@ -4,8 +4,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
 import { validateLogin } from "../utils/validate";
 import useform from "../hooks/use-form";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const login = useForm({
     initialValue: {
       email: "",
@@ -27,9 +31,18 @@ const Login = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (data) => {
-    console.log("폼 데이터 제출");
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post("http://localhost:3000/auth/login", {
+        email: data.email,
+        password: data.password,
+      });
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
+      navigate("/");
+    } catch (error) {
+      console.log("로그인 실패 " + error);
+    }
   };
 
   return (
