@@ -4,14 +4,27 @@ import styled from "styled-components";
 import Card from "../../components/Card";
 import CardSkeleton from "../Skeleton/Card-skeleton";
 import CardListSkeleton from "../Skeleton/CardListSkeleton";
+import { useQuery } from "@tanstack/react-query";
+import { useGetMovies } from "../../hooks/queries/useGetMovies";
 
 const SearchMovieList = () => {
   const [searchParams, setSearchParams] = useSearchParams({
     mq: "",
   });
   const mq = searchParams.get("mq");
-  const url = `/search/movie?query=${mq}&include_adult=false&language=ko-KR&page=1`;
-  const { data: movies, isLoading, isError } = useCustomFetch(url);
+  // const url = `/search/movie?query=${mq}&include_adult=false&language=ko-KR&page=1`;
+  //const { data: movies, isLoading, isError } = useCustomFetch(url);
+
+  const {
+    data: movies,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryFn: () => useGetMovies({ category: "search", pageParam: mq }),
+    queryKey: ["movies", "search", mq],
+    cacheTime: 10000,
+    staleTime: 10000,
+  });
 
   if (isLoading) {
     return (
@@ -40,7 +53,7 @@ const SearchMovieList = () => {
   return (
     <div style={{ display: "block" }}>
       <MoviesDiv>
-        {movies.data?.results.map((item) => {
+        {movies?.results.map((item) => {
           {
             return <Card key={item.id} id={item.id} poster_path={item.poster_path} title={item.title} release_date={item.release_date} />;
           }

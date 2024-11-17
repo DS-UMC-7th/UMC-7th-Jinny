@@ -1,12 +1,10 @@
 import MoviesPage from "../components/MoviesPage";
 
 const UpComing = () => {
-  const UpComingMoviesUrl = `/movie/upcoming?language=ko&page=1&region=KR`;
-
   return (
     <div>
       <h3 style={{ color: "white" }}>개봉 예정중인🍿</h3>
-      <MoviesPage url={UpComingMoviesUrl} />
+      <MoviesPage category={"upcoming"} page={1} />
     </div>
   );
 };

@@ -1,12 +1,10 @@
 import MoviesPage from "../components/MoviesPage";
 
 const NowPlaying = () => {
-  const NowPlayingMoviesUrl = `/movie/now_playing?language=ko&page=1&region=KR`;
-
   return (
     <div>
       <h3 style={{ color: "white" }}>현재상영 중인🍿</h3>
-      <MoviesPage url={NowPlayingMoviesUrl} />
+      <MoviesPage category={"now_playing"} page={1} />
     </div>
   );
 };

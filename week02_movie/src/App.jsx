@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import RootLayout from "./layout/root-layout";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -22,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MoviesPage url={popularMoviesUrl} />,
+        element: <MoviesPage category={"popular"} page={1} />,
       },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
@@ -43,8 +45,15 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

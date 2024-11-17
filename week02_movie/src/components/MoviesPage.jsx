@@ -5,17 +5,40 @@ import Card from "./Card";
 import styled from "styled-components";
 import { axiosInstance } from "../apis/axios-instance";
 import useCustomFetch from "../hooks/useCustomFetch";
+import { useQuery } from "@tanstack/react-query";
+import { useGetMovies } from "../hooks/queries/useGetMovies";
+import CardListSkeleton from "../pages/Skeleton/CardListSkeleton";
 
-const MoviesPage = ({ url }) => {
+const useGetMovies2 = async ({ category, pageParam }) => {
+  const { data } = `/search/movie?query=${query}&include_adult=false&language=ko-KR&page=${pageParam}`;
+
+  return data;
+};
+
+const MoviesPage = ({ category, page }) => {
   // console.log(MOVIES.results); // 배열
   // console.log(MOVIES); // 객체
-  const { data: movies, isLoading, isError } = useCustomFetch(url);
+  //const { data: movies, isLoading, isError } = useCustomFetch(url);
 
-  if (isLoading) {
+  const {
+    data: movies,
+    isPending,
+    isError,
+  } = useQuery({
+    queryFn: () => useGetMovies2({ category, pageParam: page }),
+    queryKey: ["movies", category],
+    cacheTime: 10000,
+    staleTime: 10000,
+  });
+
+  // isPending: 데이터를 불러오는 중 데이터가 로딩중일 때 isPending
+  // isLoading: 데이터를 불러오는 중이거나, 재시도 중일 때 True
+
+  if (isPending) {
     return (
-      <div>
-        <h1 style={{ color: "white" }}>😯로딩 중 입니다...</h1>
-      </div>
+      <MoviesDiv>
+        <CardListSkeleton number={20} />
+      </MoviesDiv>
     );
   }
 
@@ -30,7 +53,7 @@ const MoviesPage = ({ url }) => {
   return (
     <div>
       <MoviesDiv>
-        {movies.data?.results.map((item) => {
+        {movies?.results?.map((item) => {
           {
             return <Card key={item.id} id={item.id} poster_path={item.poster_path} title={item.title} release_date={item.release_date} />;
           }
