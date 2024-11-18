@@ -5,36 +5,60 @@ import axios from "axios";
 import { axiosInstance } from "../apis/axios-instance";
 import styled from "styled-components";
 import Credit from "../components/Credit";
+import { useGetCreditMovies, useGetDetailMovies } from "../hooks/queries/useGetMovies";
+import { useQuery } from "@tanstack/react-query";
 
 const MovieDetail = () => {
   const { movieId } = useParams();
 
-  const MovieDetailURL = `/movie/${movieId}?language=ko`;
-  const MovieCreditURL = `/movie/${movieId}/credits?language=ko-KR`;
+  //const MovieDetailURL = `/movie/${movieId}?language=ko`;
+  //const MovieCreditURL = `/movie/${movieId}/credits?language=ko-KR`;
 
-  const [movie, setMovie] = useState(null);
-  const [credit, setCredit] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  //const [movie, setMovie] = useState(null);
+  //const [credit, setCredit] = useState(null);
+  //const [isLoading, setIsLoading] = useState(true);
+  //const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    const fetchMovieDetail = async () => {
-      try {
-        const response = await axiosInstance.get(MovieDetailURL);
-        const responseCredit = await axiosInstance.get(MovieCreditURL);
-        setMovie(response.data);
-        setCredit(responseCredit.data);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const {
+    data: movie,
+    isPending: isPendingDetail,
+    isError: isErrorDetail,
+  } = useQuery({
+    queryFn: () => useGetDetailMovies({ movieId }),
+    queryKey: ["movieDetail", movieId],
+    cacheTime: 10000,
+    staleTime: 10000,
+  });
 
-    fetchMovieDetail();
-  }, [movieId]);
+  const {
+    data: credit,
+    isPending: isPendingCredit,
+    isError: isErrorCredit,
+  } = useQuery({
+    queryFn: () => useGetCreditMovies({ movieId }),
+    queryKey: ["movieCredit", movieId],
+    cacheTime: 10000,
+    staleTime: 10000,
+  });
 
-  if (isLoading) {
+  // useEffect(() => {
+  //   const fetchMovieDetail = async () => {
+  //     try {
+  //       const response = await axiosInstance.get(MovieDetailURL);
+  //       const responseCredit = await axiosInstance.get(MovieCreditURL);
+  //       setMovie(response.data);
+  //       setCredit(responseCredit.data);
+  //     } catch (error) {
+  //       setIsError(true);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchMovieDetail();
+  // }, [movieId]);
+
+  if (isPendingDetail || isPendingCredit) {
     return (
       <div>
         <h1 style={{ color: "white" }}>😯로딩 중 입니다...</h1>
@@ -42,7 +66,7 @@ const MovieDetail = () => {
     );
   }
 
-  if (isError) {
+  if (isErrorDetail || isErrorCredit) {
     return (
       <div>
         <h1 style={{ color: "white" }}>🤔에러가 발생했습니다...</h1>
@@ -50,7 +74,7 @@ const MovieDetail = () => {
     );
   }
 
-  // console.log(movie);
+  console.log(movie);
   console.log(credit);
   console.log(credit.cast);
 
@@ -75,7 +99,7 @@ const MovieDetail = () => {
       <div style={{ position: "absolute", left: "5%", width: "90%" }}>
         <h2 style={{ color: "white", borderTop: "3px solid white", width: "45%", paddingTop: "10px" }}>감독/출연</h2>
         <MoviesDiv>
-          {credit?.cast.slice(0, 20).map((item) => {
+          {credit?.cast?.slice(0, 20).map((item) => {
             {
               return (
                 <Credit creditKey={item.id} key={item.id} id={item.id} profile_path={item.profile_path} name={item.name} original_name={item.original_name} />

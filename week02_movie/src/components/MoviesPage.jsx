@@ -9,12 +9,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useGetMovies } from "../hooks/queries/useGetMovies";
 import CardListSkeleton from "../pages/Skeleton/CardListSkeleton";
 
-const useGetMovies2 = async ({ category, pageParam }) => {
-  const { data } = `/search/movie?query=${query}&include_adult=false&language=ko-KR&page=${pageParam}`;
-
-  return data;
-};
-
 const MoviesPage = ({ category, page }) => {
   // console.log(MOVIES.results); // 배열
   // console.log(MOVIES); // 객체
@@ -25,7 +19,7 @@ const MoviesPage = ({ category, page }) => {
     isPending,
     isError,
   } = useQuery({
-    queryFn: () => useGetMovies2({ category, pageParam: page }),
+    queryFn: () => useGetMovies({ category, pageParam: page }),
     queryKey: ["movies", category],
     cacheTime: 10000,
     staleTime: 10000,

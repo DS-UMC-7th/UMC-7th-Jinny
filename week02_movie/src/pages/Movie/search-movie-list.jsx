@@ -5,13 +5,14 @@ import Card from "../../components/Card";
 import CardSkeleton from "../Skeleton/Card-skeleton";
 import CardListSkeleton from "../Skeleton/CardListSkeleton";
 import { useQuery } from "@tanstack/react-query";
-import { useGetMovies } from "../../hooks/queries/useGetMovies";
+import { useGetSeachMovies } from "../../hooks/queries/useGetMovies";
 
 const SearchMovieList = () => {
   const [searchParams, setSearchParams] = useSearchParams({
     mq: "",
   });
   const mq = searchParams.get("mq");
+  const pageParam = 1;
   // const url = `/search/movie?query=${mq}&include_adult=false&language=ko-KR&page=1`;
   //const { data: movies, isLoading, isError } = useCustomFetch(url);
 
@@ -20,8 +21,8 @@ const SearchMovieList = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryFn: () => useGetMovies({ category: "search", pageParam: mq }),
-    queryKey: ["movies", "search", mq],
+    queryFn: () => useGetSeachMovies({ mq, pageParam }),
+    queryKey: ["movies", mq, pageParam],
     cacheTime: 10000,
     staleTime: 10000,
   });
@@ -42,7 +43,7 @@ const SearchMovieList = () => {
     );
   }
 
-  if (mq && movies.data?.results.length === 0) {
+  if (mq && movies?.results.length === 0) {
     return (
       <div style={{ textAlign: "center" }}>
         <h2 style={{ color: "white" }}>{mq}에 해당하는 데이터가 없습니다 😱</h2>
